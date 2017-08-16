@@ -1,0 +1,30 @@
+body {
+    background: url("/images/background.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      color: black;
+}
+
+html {
+	  position: relative;
+	  min-height: 100%;
+}
+
+h1 {
+    color: white;
+}
+
+label {
+  color: white;
+}
+
+.well {
+  background-color: #dcfccf;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  color: white;
+}

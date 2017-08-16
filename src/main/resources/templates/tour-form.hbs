@@ -1,0 +1,45 @@
+{{#partial "content"}}
+    {{#if editTour}}
+        <h1>Edit this Tour!</h1>
+        <form action="/tours/update" method="post">
+            <div class="form-group">
+                <label for="newName">Edit this tour's name</label>
+                <input id="newName" name="newName" type="text" value="{{name}}">
+            </div>
+            <div class = "form-group">
+                <label for="newDifficulty">Edit this tour's difficulty (1-10):</label>
+                <input id="newDifficulty" name="newDifficulty" type="number" value="{{difficulty}}">
+            </div>
+            <div class = "form-group">
+                <label for="newRating">Edit rating (1-10):</label>
+                <input id="newRating" name="newRating" type="number" value="{{rating}}">
+            </div>
+
+    {{else}}
+
+        <h1>Add a new Tour!</h1>
+        <form action="/tours" method="post">
+            <div class = "form-group">
+                <label for="newName">Tour name</label>
+                <input id="newName" name="newName" type="text">
+            </div>
+            <div class = "form-group">
+                <label for="newDifficulty">Difficulty (1-10):</label>
+                <input id="newDifficulty" name="newDifficulty" type="number">
+            </div>
+            <div class = "form-group">
+                <label for="newRating">Rating (1-10):</label>
+                <input id="newRating" name="newRating" type="number">
+            </div>
+
+    {{/if}}
+        <button type="submit" class="btn btn-success">Submit</button>
+        </form>
+
+
+{{/partial}}
+
+{{> layout.hbs}}
+
+
+

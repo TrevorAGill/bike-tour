@@ -1,0 +1,52 @@
+{{#block "header"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}Bicycle Tour Campsite{{/block}}</title>
+
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='/App.css'>
+</head>
+<body>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="/">Home</a></li>
+    <li role="presentation" class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Tour Menu<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            {{#if tours}}
+                {{#each tours}}
+                    <li><a href="/tours/{{id}}">{{name}}</a></li>
+                {{/each}}
+                <li><a href="/tours/new">Add a Tour</a></li>
+
+            {{else}}
+                <li><a href="/tours/new">Add a Tour</a></li>
+            {{/if}}
+        </ul>
+    </li>
+    <li role="presentation"><a href="/campsites/new">Add a New Campsite</a></li>
+</ul>
+<div class="container">
+{{/block}}
+    <!--begin main template-->
+    <h1>Welcome to the Bike Tour Thing <small>Find the best campsites along your bike tour route.</small></h1>
+
+
+    <div class="col-md-12">
+        {{#block "content"}}
+
+        {{/block}}
+
+    </div>
+
+<!--end main template-->
+{{#block "footer"}}
+    <div class="footer">
+    <p>Photo by Emmanuel Maceda on Unsplash</p>
+    </div>
+    </div>
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </html>
+{{/block}}
