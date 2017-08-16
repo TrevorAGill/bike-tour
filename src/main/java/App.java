@@ -48,6 +48,17 @@ public class App {
             response.redirect("/");
             return null;
         });
+
+        get("/tours/:id", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Tour> allTours = tourDao.getAll();
+            int idOfTour = Integer.parseInt(request.params("id"));
+            model.put("tours", allTours);
+            Tour foundTour = tourDao.findById(idOfTour);
+            model.put("tour", foundTour);
+            return new ModelAndView(model, "tour-detail.hbs");
+        }, new HandlebarsTemplateEngine());
+
     }
 
 }

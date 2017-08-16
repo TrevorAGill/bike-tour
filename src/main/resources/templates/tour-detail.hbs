@@ -1,0 +1,38 @@
+{{#partial "content"}}
+    <div class="well">
+        <h2>Tour Details:</h2>
+        <h5>Name: {{tour.name}}  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></h5>
+        <h5>Rating: {{tour.rating}}</h5>
+        <h5>Difficulty: {{tour.difficulty}}</h5>
+    </div>
+
+        <div class="well">
+            <h2>Campsites</h2>
+            {{#if campsites}}
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Cost</th>
+                        <th>Rating</th>
+                    </tr>
+                    {{#each campsites}}
+                        <tr>
+                            <td>{{name}}</td>
+                            <td>{{cost}}</td>
+                            <td>{{rating}}</td>
+                        </tr>
+                    {{/each}}
+                </table>
+            {{else}}
+                <p>There are no campsites registered for this bike tour.</p>
+            {{/if}}
+        </div>
+
+
+    <a href="/tour/{{tour.id}}/delete">Delete</a>
+
+
+
+{{/partial}}
+
+{{> layout.hbs}}
