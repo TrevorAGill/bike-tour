@@ -31,7 +31,6 @@ public class Sql2oTourDao implements TourDao {
                     .executeUpdate() //run it all
                     .getKey(); //int id is now the row number (row “key”) of db
             tour.setId(id); //update object to set id now from database
-            System.out.println(id);
         } catch (Sql2oException ex) {
             System.out.println(ex); //oops we have an error!
         }

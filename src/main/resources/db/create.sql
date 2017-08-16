@@ -7,10 +7,12 @@ CREATE TABLE IF NOT EXISTS tours (
   rating INTEGER
 );
 
---CREATE TABLE IF NOT EXISTS campsites (
--- id int PRIMARY KEY auto_increment,
--- name VARCHAR,
--- rating INTEGER,
--- cost INTEGER
--- tourId INTEGER
---);
+CREATE TABLE IF NOT EXISTS campsites (
+ id int PRIMARY KEY auto_increment,
+ name VARCHAR,
+ rating INTEGER,
+ cost INTEGER,
+ tourid INTEGER
+);
+
+--foreign key (TOURISTINFO_ID) references touristinfo(TOURISTINFO_ID) )
