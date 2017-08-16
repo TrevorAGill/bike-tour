@@ -1,0 +1,64 @@
+{{#partial "content"}}
+    {{#if editCampsite}}
+    <h1>Edit this campsite:</h1>
+    <form action="/campsites/{{editCampsite.id}}/update" method="post">
+        <div class="form-group">
+            <label for="name">Edit name: </label>
+            <input id="name" name="name" type="text" value="{{editCampsite.name}}">
+        </div>
+        <div class="form-group">
+            <label for="cost">Edit cost: </label>
+            <input id="cost" name="cost" type="number" value="{{editCampsite.cost}}">
+        </div>
+        <div class="form-group">
+            <label for="rating">Edit rating (1-10): </label>
+            <input id="rating" name="rating" type="number" value="{{editCampsite.rating}}">
+        </div>
+        <div class="form-group">
+            <label for="tour">Tour: </label>
+            <select id="tour" name="tour">
+                {{#if tours}}
+                    {{#each tours}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                {{/if}}
+            </select>
+        </div>
+
+{{else}}
+        <h1>Add a new campsite:</h1>
+
+    <form action="/campsites" method="post">
+        <div class="form-group">
+            <label for="name">Name: </label>
+            <input id="name" name="name" type="text">
+        </div>
+        <div class="form-group">
+            <label for="cost">Cost: </label>
+            <input id="cost" name="cost" type="number">
+        </div>
+        <div class="form-group">
+            <label for="rating">Rating (1-10): </label>
+            <input id="rating" name="rating" type="number">
+        </div>
+        <div class="form-group">
+            <label for="tour">Tour: </label>
+            <select id="tour" name="tour">
+                {{#if tours}}
+                    {{#each tours}}
+                        <option value="{{id}}">{{name}}</option>
+                    {{/each}}
+                {{/if}}
+            </select>
+        </div>
+
+{{/if}}
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+
+
+
+{{/partial}}
+
+{{> layout.hbs}}

@@ -56,8 +56,29 @@ public class App {
             model.put("tours", allTours);
             Tour foundTour = tourDao.findById(idOfTour);
             model.put("tour", foundTour);
+            List<Campsite> campsites = campsiteDao.getAllByTour(idOfTour);
+            model.put("campsites", campsites);
             return new ModelAndView(model, "tour-detail.hbs");
         }, new HandlebarsTemplateEngine());
+
+        get("/campsites/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Tour> allTours = tourDao.getAll();
+            model.put("tours", allTours);
+            return new ModelAndView(model, "campsite-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/campsites", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String name = request.queryParams("name");
+            int cost = Integer.parseInt(request.queryParams("cost"));
+            int rating = Integer.parseInt(request.queryParams("rating"));
+            int tourId = Integer.parseInt(request.queryParams("tour"));
+            Campsite newCampsite = new Campsite(name, rating, cost, tourId);
+            campsiteDao.add(newCampsite);
+            response.redirect("/");
+            return null;
+        });
 
     }
 
