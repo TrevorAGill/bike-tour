@@ -76,7 +76,7 @@ public class App {
             int tourId = Integer.parseInt(request.queryParams("tour"));
             Campsite newCampsite = new Campsite(name, rating, cost, tourId);
             campsiteDao.add(newCampsite);
-            response.redirect("/");
+            response.redirect("/tours/" + tourId);
             return null;
         });
 
