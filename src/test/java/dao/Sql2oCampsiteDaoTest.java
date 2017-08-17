@@ -76,7 +76,7 @@ public class Sql2oCampsiteDaoTest {
     @Test
     public void returnListOfAllCampsites() throws Exception {
         Campsite newCampsite = newCampsite();
-        Campsite newCampsite2 = new Campsite("Lewis and Clarke", 4, 3, 1);
+        Campsite newCampsite2 = new Campsite("Lewis and Clarke", 4, 3, 1, true, true, true, "groceries", "no phone");
         campsiteDao.add(newCampsite);
         campsiteDao.add(newCampsite2);
         assertEquals(2, campsiteDao.getAll().size());
@@ -85,8 +85,8 @@ public class Sql2oCampsiteDaoTest {
     @Test
     public void getAllByTour_returnsAllCampsitesForTour() throws Exception {
         Campsite newCampsite = newCampsite();
-        Campsite newCampsite2 = new Campsite("Lewis and Clarke", 4, 3, 1);
-        Campsite newCampsite3 = new Campsite("Lewis and Clarke", 4, 3, 2);
+        Campsite newCampsite2 = new Campsite("Lewis and Clarke", 4, 3, 1, true, true, true, "groceries", "no phone");
+        Campsite newCampsite3 = new Campsite("Lewis and Clarke", 4, 3, 2, true, true, true, "groceries", "no phone");
         campsiteDao.add(newCampsite);
         campsiteDao.add(newCampsite2);
         campsiteDao.add(newCampsite3);
@@ -100,7 +100,7 @@ public class Sql2oCampsiteDaoTest {
         String oldName = newCampsite.getName();
         campsiteDao.add(newCampsite);
         Campsite foundCampsite = campsiteDao.findById(newCampsite.getId());
-        campsiteDao.update("Test",4,4, 1, foundCampsite.getId());
+        campsiteDao.update("Test",4,4, 1, foundCampsite.getId(), true, true, true, "groceries", "no phone");
         Campsite updatedCampsite = campsiteDao.findById(foundCampsite.getId());
         assertNotEquals(oldName, updatedCampsite.getName());
     }
@@ -117,7 +117,7 @@ public class Sql2oCampsiteDaoTest {
 
     //helper
     public Campsite newCampsite() {
-        return new Campsite("PCT Camp", 3, 10, 1);
+        return new Campsite("PCT Camp", 3, 10, 1, true, true, true, "groceries", "no phone");
     }
 
 

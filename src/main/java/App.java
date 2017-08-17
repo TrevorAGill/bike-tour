@@ -23,7 +23,7 @@ public class App {
         Sql2oCampsiteDao campsiteDao = new Sql2oCampsiteDao(sql2o);
         Sql2oTourDao tourDao = new Sql2oTourDao(sql2o);
 
-        //get: show all campsites in all categories and show all categories
+
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Tour> allTours = tourDao.getAll();
@@ -43,7 +43,10 @@ public class App {
             String name = request.queryParams("newName");
             int difficulty = Integer.parseInt(request.queryParams("newDifficulty"));
             int rating = Integer.parseInt(request.queryParams("newRating"));
-            Tour newTour = new Tour(name,difficulty,rating);
+            String season = request.queryParams("newSeason");
+            int distance = Integer.parseInt(request.queryParams("newDistance"));
+            String description = request.queryParams("newDescription");
+            Tour newTour = new Tour(name,difficulty,rating,season,distance,description);
             tourDao.add(newTour);
             response.redirect("/");
             return null;
@@ -61,6 +64,30 @@ public class App {
             return new ModelAndView(model, "tour-detail.hbs");
         }, new HandlebarsTemplateEngine());
 
+        get("/tours/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int editTourId = Integer.parseInt(request.params("id"));
+            Tour editTour = tourDao.findById(editTourId);
+            model.put("editTour", editTour);
+            List<Tour> allTours = tourDao.getAll();
+            model.put("tours", allTours);
+            return new ModelAndView(model, "tour-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/tours/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int tourId = Integer.parseInt(request.params("id"));
+            String name = request.queryParams("newName");
+            int difficulty = Integer.parseInt(request.queryParams("newDifficulty"));
+            int rating = Integer.parseInt(request.queryParams("newRating"));
+            String season = request.queryParams("newSeason");
+            int distance = Integer.parseInt(request.queryParams("newDistance"));
+            String description = request.queryParams("newDescription");
+            tourDao.update(name,difficulty,rating,tourId, season,distance,description);
+            response.redirect("/tours/" + tourId);
+            return null;
+        });
+
         get("/campsites/new", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             List<Tour> allTours = tourDao.getAll();
@@ -74,9 +101,42 @@ public class App {
             int cost = Integer.parseInt(request.queryParams("cost"));
             int rating = Integer.parseInt(request.queryParams("rating"));
             int tourId = Integer.parseInt(request.queryParams("tour"));
-            Campsite newCampsite = new Campsite(name, rating, cost, tourId);
+            String phone = request.queryParams("phone");
+            String foodAvailable = request.queryParams("foodAvailable");
+            boolean showers = Boolean.parseBoolean(request.queryParams("showers"));
+            boolean bikeRepair = Boolean.parseBoolean(request.queryParams("bikeRepair"));
+            boolean reservation = Boolean.parseBoolean(request.queryParams("reservation"));
+            Campsite newCampsite = new Campsite(name, rating, cost, tourId, showers, bikeRepair, reservation, foodAvailable, phone);
             campsiteDao.add(newCampsite);
+            campsiteDao.update(name, rating, cost, tourId, newCampsite.getId(), showers, bikeRepair, reservation, foodAvailable, phone);
             response.redirect("/tours/" + tourId);
+            return null;
+        });
+
+        get("/campsites/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int editCampsiteId = Integer.parseInt(request.params("id"));
+            Campsite editCampsite = campsiteDao.findById(editCampsiteId);
+            model.put("editCampsite", editCampsite);
+            List<Tour> allTours = tourDao.getAll();
+            model.put("tours", allTours);
+            return new ModelAndView(model, "campsite-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("/campsites/:id/update", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            int campId = Integer.parseInt(request.params("id"));
+            String name = request.queryParams("name");
+            int cost = Integer.parseInt(request.queryParams("cost"));
+            int rating = Integer.parseInt(request.queryParams("rating"));
+            int tourId = Integer.parseInt(request.queryParams("tour"));
+            String phone = request.queryParams("phone");
+            String foodAvailable = request.queryParams("foodAvailable");
+            boolean showers = Boolean.parseBoolean(request.queryParams("showers"));
+            boolean bikeRepair = Boolean.parseBoolean(request.queryParams("bikeRepair"));
+            boolean reservation = Boolean.parseBoolean(request.queryParams("reservation"));
+            campsiteDao.update(name, cost, rating, tourId, campId, showers, bikeRepair, reservation, foodAvailable, phone);
+            response.redirect("/");
             return null;
         });
 

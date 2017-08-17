@@ -6,11 +6,18 @@ public class Tour {
     private int difficulty;
     private int rating;
     private int id;
+    private String season;
+    private int distance;
+    private String description;
 
-    public Tour(String name, int difficulty, int rating){
+
+    public Tour(String name, int difficulty, int rating, String season, int distance, String description){
         this.name = name;
         this.difficulty = difficulty;
         this.rating = rating;
+        this.season = season;
+        this.distance = distance;
+        this.description = description;
     }
 
     @Override
@@ -22,7 +29,11 @@ public class Tour {
 
         if (difficulty != tour.difficulty) return false;
         if (rating != tour.rating) return false;
-        return name.equals(tour.name);
+        if (id != tour.id) return false;
+        if (distance != tour.distance) return false;
+        if (!name.equals(tour.name)) return false;
+        if (season != null ? !season.equals(tour.season) : tour.season != null) return false;
+        return description != null ? description.equals(tour.description) : tour.description == null;
     }
 
     @Override
@@ -30,6 +41,10 @@ public class Tour {
         int result = name.hashCode();
         result = 31 * result + difficulty;
         result = 31 * result + rating;
+        result = 31 * result + id;
+        result = 31 * result + (season != null ? season.hashCode() : 0);
+        result = 31 * result + distance;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
@@ -64,5 +79,29 @@ public class Tour {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int length) {
+        this.distance = length;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

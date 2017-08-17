@@ -19,15 +19,21 @@ public class Sql2oTourDao implements TourDao {
 
     @Override
     public void add(Tour tour) {
-        String sql = "INSERT INTO tours (name, difficulty, rating) VALUES (:name, :difficulty, :rating)"; //raw sql
+        String sql = "INSERT INTO tours (name, difficulty, rating, season, distance, description) VALUES (:name, :difficulty, :rating, :season, :distance, :description)"; //raw sql
         try(Connection con = sql2o.open()){ //try to open a connection
             int id = (int) con.createQuery(sql) //make a new variable
                     .addParameter("name", tour.getName())
                     .addParameter("difficulty", tour.getDifficulty())
                     .addParameter("rating", tour.getRating())
+                    .addParameter("season", tour.getSeason())
+                    .addParameter("distance", tour.getDistance())
+                    .addParameter("description", tour.getDescription())
                     .addColumnMapping("NAME", "name")
                     .addColumnMapping("DIFFICULTY", "difficulty")
                     .addColumnMapping("RATING", "rating")
+                    .addColumnMapping("SEASON", "season")
+                    .addColumnMapping("DISTANCE", "distance")
+                    .addColumnMapping("DESCRIPTION", "description")
                     .executeUpdate() //run it all
                     .getKey(); //int id is now the row number (row “key”) of db
             tour.setId(id); //update object to set id now from database
@@ -55,13 +61,16 @@ public class Sql2oTourDao implements TourDao {
     }
 
     @Override
-    public void update(String name, int difficulty, int rating, int id) {
+    public void update(String name, int difficulty, int rating, int id, String season, int distance, String description) {
         try (Connection con = sql2o.open()) {
-            con.createQuery("UPDATE tours SET (rating, difficulty, name) = (:rating, :difficulty, :name) WHERE id = :id")
+            con.createQuery("UPDATE tours SET (rating, difficulty, name, season, distance, description) = (:rating, :difficulty, :name, :season, :distance, :description) WHERE id = :id")
                     .addParameter("id", id)
                     .addParameter("rating", rating)
                     .addParameter("difficulty", difficulty)
+                    .addParameter("season", season)
+                    .addParameter("distance", distance)
                     .addParameter("name", name)
+                    .addParameter("description", description)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);

@@ -1,18 +1,30 @@
 {{#partial "content"}}
     {{#if editTour}}
         <h1>Edit this Tour!</h1>
-        <form action="/tours/update" method="post">
+        <form action="/tours/{{editTour.id}}/update" method="post">
             <div class="form-group">
-                <label for="newName">Edit this tour's name</label>
-                <input id="newName" name="newName" type="text" value="{{name}}">
+                <label for="newName">Tour name</label>
+                <input id="newName" name="newName" type="text" value="{{editTour.name}}" required>
             </div>
             <div class = "form-group">
-                <label for="newDifficulty">Edit this tour's difficulty (1-10):</label>
-                <input id="newDifficulty" name="newDifficulty" type="number" value="{{difficulty}}">
+                <label for="newDifficulty">Difficulty (1-10):</label>
+                <input id="newDifficulty" name="newDifficulty" type="number" value="{{editTour.difficulty}}" min="1" max="10" required>
             </div>
             <div class = "form-group">
-                <label for="newRating">Edit rating (1-10):</label>
-                <input id="newRating" name="newRating" type="number" value="{{rating}}">
+                <label for="newRating">Rating (1-10):</label>
+                <input id="newRating" name="newRating" type="number" value="{{editTour.rating}}" min="1" max="10" required>
+            </div>
+            <div class="form-group">
+                <label for="newSeason">Season</label>
+                <input id="newSeason" name="newSeason" type="text" value="{{editTour.season}}" required>
+            </div>
+            <div class="form-group">
+                <label for="newDistance">Distance</label>
+                <input id="newDistance" name="newDistance" type="text" value="{{editTour.distance}}" required>
+            </div>
+            <div class="form-group">
+                <label for="newDescription">Description</label>
+                <input id="newDescription" name="newDescription" type="text" value="{{editTour.description}}" required>
             </div>
 
     {{else}}
@@ -21,15 +33,28 @@
         <form action="/tours" method="post">
             <div class = "form-group">
                 <label for="newName">Tour name</label>
-                <input id="newName" name="newName" type="text">
+                <input id="newName" name="newName" type="text" required>
             </div>
             <div class = "form-group">
                 <label for="newDifficulty">Difficulty (1-10):</label>
-                <input id="newDifficulty" name="newDifficulty" type="number">
+                <input id="newDifficulty" name="newDifficulty" type="number" min="1" max="10" required>
             </div>
             <div class = "form-group">
                 <label for="newRating">Rating (1-10):</label>
-                <input id="newRating" name="newRating" type="number">
+                <input id="newRating" name="newRating" type="number" min="1" max="10" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newSeason">Season</label>
+                <input id="newSeason" name="newSeason" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="newDistance">Distance</label>
+                <input id="newDistance" name="newDistance" type="text" required>
+            </div>
+            <div class="form-group">
+                <label for="newDescription">Description</label>
+                <input id="newDescription" name="newDescription" type="text" required>
             </div>
 
     {{/if}}

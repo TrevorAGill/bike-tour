@@ -3,20 +3,57 @@
     <h1>Edit this campsite:</h1>
     <form action="/campsites/{{editCampsite.id}}/update" method="post">
         <div class="form-group">
-            <label for="name">Edit name: </label>
-            <input id="name" name="name" type="text" value="{{editCampsite.name}}">
+            <label for="name">Name: </label>
+            <input id="name" name="name" type="text" value="{{editCampsite.name}}" required>
         </div>
         <div class="form-group">
-            <label for="cost">Edit cost: </label>
-            <input id="cost" name="cost" type="number" value="{{editCampsite.cost}}">
+            <label for="cost">Cost: </label>
+            <input id="cost" name="cost" type="number" value="{{editCampsite.cost}}" min="0" required>
         </div>
         <div class="form-group">
-            <label for="rating">Edit rating (1-10): </label>
-            <input id="rating" name="rating" type="number" value="{{editCampsite.rating}}">
+            <label for="rating">Rating (1-10): </label>
+            <input id="rating" name="rating" type="number" min="1" max="10" value="{{editCampsite.rating}}" required>
         </div>
+
+        <div class="form-group">
+            <label for="phone">Phone: </label>
+            <input id="phone" name="phone" type="text" value="{{editCampsite.phone}}">
+        </div>
+
+        <div class="form-group">
+            <label for="foodAvailable">Food Available: </label>
+            <input id="foodAvailable" name="foodAvailable" type="text" value="{{editCampsite.foodAvailable}}">
+        </div>
+
+        <div class="form-group">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="showers" value="{{editCampsite.showers}}">
+                    Has Showers
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="reservation" value="{{editCampsite.reservation}}">
+                    Reservations needed
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="radio">
+                <label>
+                    <input type="radio" name="bikeRepair" value="{{editCampsite.bikeRepair}}">
+                    Bike repair nearby (< 3 miles)
+                </label>
+            </div>
+        </div>
+
+
         <div class="form-group">
             <label for="tour">Tour: </label>
-            <select id="tour" name="tour">
+            <select id="tour" name="tour" required>
                 {{#if tours}}
                     {{#each tours}}
                         <option value="{{id}}">{{name}}</option>
@@ -31,19 +68,54 @@
     <form action="/campsites" method="post">
         <div class="form-group">
             <label for="name">Name: </label>
-            <input id="name" name="name" type="text">
+            <input id="name" name="name" type="text" required>
         </div>
         <div class="form-group">
             <label for="cost">Cost: </label>
-            <input id="cost" name="cost" type="number">
+            <input id="cost" name="cost" type="number" min="0" required>
         </div>
         <div class="form-group">
             <label for="rating">Rating (1-10): </label>
-            <input id="rating" name="rating" type="number">
+            <input id="rating" name="rating" type="number" min="1" max="10" required>
         </div>
         <div class="form-group">
+            <label for="phone">Phone: </label>
+            <input id="phone" name="phone" type="text">
+        </div>
+
+        <div class="form-group">
+            <label for="foodAvailable">Food Available: </label>
+            <input id="foodAvailable" name="foodAvailable" type="text">
+        </div>
+
+            <div class="form-group">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="showers" value="true">
+                        Has Showers
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="reservation" value="true">
+                        Reservations needed
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="bikeRepair" value="true">
+                        Bike repair nearby (< 3 miles)
+                    </label>
+                </div>
+            </div>
+
+        <div class="form-group">
             <label for="tour">Tour: </label>
-            <select id="tour" name="tour">
+            <select id="tour" name="tour" required>
                 {{#if tours}}
                     {{#each tours}}
                         <option value="{{id}}">{{name}}</option>

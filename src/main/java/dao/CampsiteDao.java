@@ -19,7 +19,7 @@ public interface CampsiteDao {
     Campsite findById(int id);
 
     //update
-    void update(String name, int cost, int rating, int tourId, int id);
+    void update(String name, int rating, int cost, int tourId, int id, boolean showers, boolean bikeRepair, boolean reservation, String foodAvailable, String phone);
 
     //delete
     void deleteById(int id);

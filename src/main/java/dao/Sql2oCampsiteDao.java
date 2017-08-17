@@ -17,17 +17,27 @@ public class Sql2oCampsiteDao implements CampsiteDao{
 
     @Override
     public void add(Campsite campsite) {
-        String sql = "INSERT INTO campsites (name, rating, cost, tourId) VALUES (:name, :rating, :cost, :tourId)"; //raw sql
+        String sql = "INSERT INTO campsites (name, rating, cost, tourId, showers, bikeRepair, reservation, foodAvailable, phone) VALUES (:name, :rating, :cost, :tourId, :showers, :bikeRepair, :reservation, :foodAvailable, :phone)"; //raw sql
         try(Connection con = sql2o.open()){ //try to open a connection
             int id = (int) con.createQuery(sql) //make a new variable
                     .addParameter("name", campsite.getName())
                     .addParameter("rating", campsite.getRating())
                     .addParameter("cost", campsite.getCost())
                     .addParameter("tourId", campsite.getTourId())
+                    .addParameter("showers", campsite.isShowers())
+                    .addParameter("bikeRepair", campsite.isBikeRepair())
+                    .addParameter("reservation", campsite.isReservation())
+                    .addParameter("foodAvailable", campsite.getFoodAvailable())
+                    .addParameter("phone", campsite.getPhone())
                     .addColumnMapping("NAME", "name")
                     .addColumnMapping("RATING", "rating")
                     .addColumnMapping("COST", "cost")
                     .addColumnMapping("TOURID", "tourId")
+                    .addColumnMapping("SHOWERS", "showers")
+                    .addColumnMapping("BIKEREPAIR", "bikeRepair")
+                    .addColumnMapping("RESERVATION", "reservation")
+                    .addColumnMapping("FOODAVAILABLE", "foodAvailable")
+                    .addColumnMapping("PHONE", "phone")
                     .executeUpdate() //run it all
                     .getKey(); //int id is now the row number (row “key”) of db
             campsite.setId(id); //update object to set id now from database
@@ -65,14 +75,19 @@ public class Sql2oCampsiteDao implements CampsiteDao{
     }
 
     @Override
-    public void update(String name, int cost, int rating, int id, int tourId) {
+    public void update(String name, int rating, int cost, int tourId, int id, boolean showers, boolean bikeRepair, boolean reservation, String foodAvailable, String phone) {
         try (Connection con = sql2o.open()) {
-            con.createQuery("UPDATE campsites SET (rating, cost, name, tourId) = (:rating, :cost, :name, :tourId) WHERE id = :id")
-                    .addParameter("id", id)
+            con.createQuery("UPDATE campsites SET (name, rating, cost, tourId, showers, bikeRepair, reservation, foodAvailable, phone) = (:name, :rating, :cost, :tourId, :showers, :bikeRepair, :reservation, :foodAvailable, :phone) WHERE id = :id")
+                    .addParameter("name", name)
                     .addParameter("rating", rating)
                     .addParameter("cost", cost)
-                    .addParameter("name", name)
                     .addParameter("tourId", tourId)
+                    .addParameter("id", id)
+                    .addParameter("showers", showers)
+                    .addParameter("bikeRepair", bikeRepair)
+                    .addParameter("reservation", reservation)
+                    .addParameter("foodAvailable", foodAvailable)
+                    .addParameter("phone", phone)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);

@@ -17,7 +17,7 @@ public interface TourDao {
     Tour findById(int id);
 
     //update
-    void update(String name, int difficulty, int rating, int id);
+    void update(String name, int difficulty, int rating, int id, String season, int distance, String description);
 
     //delete
     void deleteById(int id);

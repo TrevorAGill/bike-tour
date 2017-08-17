@@ -1,9 +1,12 @@
 {{#partial "content"}}
     <div class="well">
         <h2>Tour Details:</h2>
-        <h5>Name: {{tour.name}}  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></h5>
+        <h5>Name: {{tour.name}}  <a href="/tours/{{tour.id}}/update"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></h5>
         <h5>Rating: {{tour.rating}}</h5>
         <h5>Difficulty: {{tour.difficulty}}</h5>
+        <h5>Season: {{tour.season}}</h5>
+        <h5>Distance: {{tour.distance}}</h5>
+        <h5>Description: {{tour.description}}</h5>
     </div>
 
         <div class="well">
@@ -14,12 +17,20 @@
                         <th>Name</th>
                         <th>Cost</th>
                         <th>Rating</th>
+                        <th>Showers</th>
+                        <th>Bike Repair</th>
+                        <th>Reservations</th>
+                        <th>Phone #</th>
                     </tr>
                     {{#each campsites}}
                         <tr>
-                            <td>{{name}}</td>
+                            <td><a href="/campsites/{{id}}/detail">{{name}}</a>  <a href="/campsites/{{id}}/update"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
                             <td>{{cost}}</td>
                             <td>{{rating}}</td>
+                            <td>{{showers}}</td>
+                            <td>{{bikeRepair}}</td>
+                            <td>{{reservation}}</td>
+                            <td>{{phone}}</td>
                         </tr>
                     {{/each}}
                 </table>
