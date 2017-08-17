@@ -3,6 +3,7 @@ package models;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 
 public class Campsite {
     private String name;
@@ -16,6 +17,8 @@ public class Campsite {
     private String reservation;
     private String foodAvailable;
     private String phone;
+    int scoreTotal;
+    int reviewCount;
 
     public Campsite (String name, int rating, int cost, int tourId, String showers, String bikeRepair, String reservation, String foodAvailable, String phone, String[] amenities){
         this.name = name;
@@ -28,6 +31,8 @@ public class Campsite {
         this.foodAvailable = foodAvailable;
         this.phone = phone;
         this.amenities = amenities;
+        this.scoreTotal = 0;
+        this.reviewCount = 0;
     }
 
     @Override
@@ -90,6 +95,16 @@ public class Campsite {
         } else {
             this.bikeRepair = "no";
         }
+    }
+
+    public int calcScores(List<Review> reviewList, int rating){
+        for(Review review : reviewList) {
+            this.reviewCount++;
+            this.scoreTotal += rating;
+        }
+        int aScore = this.scoreTotal;
+        int thisReviewCt = this.reviewCount;
+        return aScore/thisReviewCt;
     }
 
     public String getName() {

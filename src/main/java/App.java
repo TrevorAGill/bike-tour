@@ -174,6 +174,8 @@ public class App {
             Campsite campsite = campsiteDao.findById(thisCampId);
             model.put("campsite", campsite);
             List<Review> reviews = reviewDao.getAllByCampsite(thisCampId);
+            int avgScore = campsite.calcScores(reviews, campsite.getRating());
+            model.put("avgScore", avgScore);
             model.put("reviews", reviews);
             return new ModelAndView(model, "campsite-detail.hbs");
         }, new HandlebarsTemplateEngine());
