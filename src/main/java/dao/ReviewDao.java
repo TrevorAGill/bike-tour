@@ -12,6 +12,6 @@ public interface ReviewDao {
     void add(Review review);
 
     //read
-    List<Review> getAllByCampsite(int campId);
+    List<Review> getAllByCampsite(int campsiteId);
 
 }

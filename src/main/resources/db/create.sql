@@ -23,4 +23,9 @@ CREATE TABLE IF NOT EXISTS campsites (
  phone VARCHAR
 );
 
---foreign key (TOURISTINFO_ID) references touristinfo(TOURISTINFO_ID) )
+CREATE TABLE IF NOT EXISTS reviews (
+  id int PRIMARY KEY auto_increment,
+  comment VARCHAR,
+  rating INTEGER,
+  campsiteid INTEGER
+);

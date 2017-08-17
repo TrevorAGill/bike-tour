@@ -1,6 +1,8 @@
 import dao.Sql2oCampsiteDao;
+import dao.Sql2oReviewDao;
 import dao.Sql2oTourDao;
 import models.Campsite;
+import models.Review;
 import models.Tour;
 import org.sql2o.Sql2o;
 import spark.ModelAndView;
@@ -23,6 +25,7 @@ public class App {
         Sql2o sql2o = new Sql2o(connectionString, "", "");
         Sql2oCampsiteDao campsiteDao = new Sql2oCampsiteDao(sql2o);
         Sql2oTourDao tourDao = new Sql2oTourDao(sql2o);
+        Sql2oReviewDao reviewDao = new Sql2oReviewDao(sql2o);
 
 
         get("/", (req, res) -> {
@@ -142,6 +145,38 @@ public class App {
             response.redirect("/");
             return null;
         });
+
+        get("/campsites/:id/reviews/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Tour> allTours = tourDao.getAll();
+            model.put("tours", allTours);
+            int campsiteId = Integer.parseInt(request.params("id"));
+            model.put("id", campsiteId);
+            return new ModelAndView(model, "review-form.hbs");
+        }, new HandlebarsTemplateEngine());
+
+        post("campsites/:id/reviews", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            String comment = request.queryParams("comment");
+            int rating = Integer.parseInt(request.queryParams("rating"));
+            int campsiteId = Integer.parseInt(request.params("id"));
+            Review newReview = new Review(comment, rating, campsiteId);
+            reviewDao.add(newReview);
+            response.redirect("/campsites/" + campsiteId + "/detail");
+            return null;
+        });
+
+        get("/campsites/:id/detail", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Tour> allTours = tourDao.getAll();
+            model.put("tours", allTours);
+            int thisCampId = Integer.parseInt(request.params("id"));
+            Campsite campsite = campsiteDao.findById(thisCampId);
+            model.put("campsite", campsite);
+            List<Review> reviews = reviewDao.getAllByCampsite(thisCampId);
+            model.put("reviews", reviews);
+            return new ModelAndView(model, "campsite-detail.hbs");
+        }, new HandlebarsTemplateEngine());
 
     }
 

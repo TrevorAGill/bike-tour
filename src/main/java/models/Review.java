@@ -1,6 +1,7 @@
 package models;
 
 public class Review {
+    private int id;
     private String comment;
     private int rating;
     private int campsiteId;
@@ -18,6 +19,7 @@ public class Review {
 
         Review review = (Review) o;
 
+        if (id != review.id) return false;
         if (rating != review.rating) return false;
         if (campsiteId != review.campsiteId) return false;
         return comment.equals(review.comment);
@@ -25,7 +27,8 @@ public class Review {
 
     @Override
     public int hashCode() {
-        int result = comment.hashCode();
+        int result = id;
+        result = 31 * result + comment.hashCode();
         result = 31 * result + rating;
         result = 31 * result + campsiteId;
         return result;
@@ -53,5 +56,13 @@ public class Review {
 
     public void setCampsiteId(int campsiteId) {
         this.campsiteId = campsiteId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
