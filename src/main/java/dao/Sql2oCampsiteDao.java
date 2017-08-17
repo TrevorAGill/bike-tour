@@ -24,9 +24,9 @@ public class Sql2oCampsiteDao implements CampsiteDao{
                     .addParameter("rating", campsite.getRating())
                     .addParameter("cost", campsite.getCost())
                     .addParameter("tourId", campsite.getTourId())
-                    .addParameter("showers", campsite.isShowers())
-                    .addParameter("bikeRepair", campsite.isBikeRepair())
-                    .addParameter("reservation", campsite.isReservation())
+                    .addParameter("showers", campsite.getShowers())
+                    .addParameter("bikeRepair", campsite.getBikeRepair())
+                    .addParameter("reservation", campsite.getReservation())
                     .addParameter("foodAvailable", campsite.getFoodAvailable())
                     .addParameter("phone", campsite.getPhone())
                     .addColumnMapping("NAME", "name")
@@ -75,7 +75,7 @@ public class Sql2oCampsiteDao implements CampsiteDao{
     }
 
     @Override
-    public void update(String name, int rating, int cost, int tourId, int id, boolean showers, boolean bikeRepair, boolean reservation, String foodAvailable, String phone) {
+    public void update(String name, int rating, int cost, int tourId, int id, String showers, String bikeRepair, String reservation, String foodAvailable, String phone) {
         try (Connection con = sql2o.open()) {
             con.createQuery("UPDATE campsites SET (name, rating, cost, tourId, showers, bikeRepair, reservation, foodAvailable, phone) = (:name, :rating, :cost, :tourId, :showers, :bikeRepair, :reservation, :foodAvailable, :phone) WHERE id = :id")
                     .addParameter("name", name)

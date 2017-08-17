@@ -52,3 +52,7 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #f4ffef;
 }
+
+#checkboxes {
+  color: white;
+}

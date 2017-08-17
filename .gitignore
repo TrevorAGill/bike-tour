@@ -49,3 +49,4 @@ settings.gradle
 .idea/
 out/
 bike-tour-reviews.iml
+.iml

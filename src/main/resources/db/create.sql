@@ -16,9 +16,9 @@ CREATE TABLE IF NOT EXISTS campsites (
  rating INTEGER,
  cost INTEGER,
  tourid INTEGER,
- showers BOOLEAN,
- bikerepair BOOLEAN,
- reservation BOOLEAN,
+ showers VARCHAR,
+ bikerepair VARCHAR,
+ reservation VARCHAR,
  foodavailable VARCHAR,
  phone VARCHAR
 );

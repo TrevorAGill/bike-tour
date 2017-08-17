@@ -1,28 +1,33 @@
 package models;
 
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class Campsite {
     private String name;
     private int rating;
     private int cost;
     private int id;
     private int tourId;
-    private boolean showers;
-    private boolean bikeRepair;
-    private boolean reservation;
+    private String [] amenities;
+    private String showers;
+    private String bikeRepair;
+    private String reservation;
     private String foodAvailable;
     private String phone;
 
-    public Campsite (String name, int rating, int cost, int tourId, boolean showers, boolean bikeRepair, boolean reservation, String foodAvailable, String phone){
+    public Campsite (String name, int rating, int cost, int tourId, String showers, String bikeRepair, String reservation, String foodAvailable, String phone, String[] amenities){
         this.name = name;
         this.rating = rating;
         this.cost = cost;
         this.tourId = tourId;
-        this.showers = false;
-        this.bikeRepair = false;
-        this.reservation = false;
+        this.showers = showers;
+        this.bikeRepair = bikeRepair;
+        this.reservation =reservation;
         this.foodAvailable = foodAvailable;
         this.phone = phone;
+        this.amenities = amenities;
     }
 
     @Override
@@ -36,13 +41,12 @@ public class Campsite {
         if (cost != campsite.cost) return false;
         if (id != campsite.id) return false;
         if (tourId != campsite.tourId) return false;
-        if (showers != campsite.showers) return false;
-        if (bikeRepair != campsite.bikeRepair) return false;
-        if (reservation != campsite.reservation) return false;
         if (!name.equals(campsite.name)) return false;
-        if (foodAvailable != null ? !foodAvailable.equals(campsite.foodAvailable) : campsite.foodAvailable != null)
-            return false;
-        return phone != null ? phone.equals(campsite.phone) : campsite.phone == null;
+        if (!showers.equals(campsite.showers)) return false;
+        if (!bikeRepair.equals(campsite.bikeRepair)) return false;
+        if (!reservation.equals(campsite.reservation)) return false;
+        if (!foodAvailable.equals(campsite.foodAvailable)) return false;
+        return phone.equals(campsite.phone);
     }
 
     @Override
@@ -52,12 +56,40 @@ public class Campsite {
         result = 31 * result + cost;
         result = 31 * result + id;
         result = 31 * result + tourId;
-        result = 31 * result + (showers ? 1 : 0);
-        result = 31 * result + (bikeRepair ? 1 : 0);
-        result = 31 * result + (reservation ? 1 : 0);
-        result = 31 * result + (foodAvailable != null ? foodAvailable.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + showers.hashCode();
+        result = 31 * result + bikeRepair.hashCode();
+        result = 31 * result + reservation.hashCode();
+        result = 31 * result + foodAvailable.hashCode();
+        result = 31 * result + phone.hashCode();
         return result;
+    }
+
+    public String translateRadio(String reservationRaw){
+        String reservation;
+        if((!reservationRaw.equals("yes") && !reservationRaw.equals("no")) || reservationRaw == null || reservationRaw == ""){
+            reservation = "no";
+        } else {
+            reservation = reservationRaw;
+        }
+        return reservation;
+    }
+
+    public void breakUp(String[] amenities){
+        if (Arrays.asList(amenities).contains("showers")){
+            this.showers = "yes";
+        } else {
+            this.showers = "no";
+        }
+        if (Arrays.asList(amenities).contains("reservations")){
+            this.reservation = "yes";
+        } else {
+            this.reservation = "no";
+        }
+        if (Arrays.asList(amenities).contains("bikeRepair")){
+            this.bikeRepair = "yes";
+        } else {
+            this.bikeRepair = "no";
+        }
     }
 
     public String getName() {
@@ -100,27 +132,27 @@ public class Campsite {
         this.tourId = tourId;
     }
 
-    public boolean isShowers() {
+    public String getShowers() {
         return showers;
     }
 
-    public void setShowers(boolean showers) {
+    public void setShowers(String showers) {
         this.showers = showers;
     }
 
-    public boolean isBikeRepair() {
+    public String getBikeRepair() {
         return bikeRepair;
     }
 
-    public void setBikeRepair(boolean bikeRepair) {
+    public void setBikeRepair(String bikeRepair) {
         this.bikeRepair = bikeRepair;
     }
 
-    public boolean isReservation() {
+    public String getReservation() {
         return reservation;
     }
 
-    public void setReservation(boolean reservation) {
+    public void setReservation(String reservation) {
         this.reservation = reservation;
     }
 
